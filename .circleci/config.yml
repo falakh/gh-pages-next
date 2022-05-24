@@ -14,12 +14,12 @@ workflows:
     jobs:
       - hold:
           type: approval
-      - node/run:
-          pkg-manager: yarn
-          yarn-run: build
           filters:
             branches:
               only: main
+      - node/run:
+          pkg-manager: yarn
+          yarn-run: build
           requires:
             - hold
       - node/test:
