@@ -29,18 +29,6 @@ workflows:
             branches:
               only: main
       - node/run:
-          name: build
-          yarn-run: build
-          pkg-manager: yarn
-          requires:
-            - hold
-      - node/run:
-          name: export
-          pkg-manager: yarn
-          yarn-run: export
-          requires:
-            - build
-      - node/run:
           pkg-manager: yarn
           name: deploy
           yarn-run: deploy
