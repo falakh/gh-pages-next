@@ -18,9 +18,11 @@ workflows:
               only: main
       - node/run:
           yarn-run: build
+          pkg-manager: yarn
           requires:
             - hold
       - node/run:
+          pkg-manager: yarn
           yarn-run: export
           requires:
             - node/run
