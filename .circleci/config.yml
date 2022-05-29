@@ -11,13 +11,13 @@ jobs:
       name: node/default
     steps:
       - run:
-          command: npm run build
+          command: yarn run build
   export:
     executor:
       name: node/default
     steps:
       - run:
-          command: npm run export
+          command: yarn run export
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
