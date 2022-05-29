@@ -7,9 +7,17 @@ orbs:
   node: circleci/node@5.0.2
 jobs:
   - build:
-    node/run:
+      executor:
+        name: node/default
+      steps:
+        - node/run:
           pkg-manager: yarn
           yarn-run: build
+        - node/run:
+          pkg-manager: yarn
+          yarn-run: export
+        
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
