@@ -12,6 +12,12 @@ jobs:
     steps:
       - run:
           command: npm run build
+    export:
+      executor:
+        name: node/default
+      steps:
+        - run:
+            command: npm run export
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
@@ -26,6 +32,9 @@ workflows:
       - build:
           requires:
             - hold
+      - export:
+          requires:
+            - build
       - node/test:
           # This is the node version to use for the `cimg/node` tag
           # Relevant tags can be found on the CircleCI Developer Hub
