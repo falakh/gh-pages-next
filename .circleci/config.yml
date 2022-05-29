@@ -38,6 +38,11 @@ workflows:
           yarn-run: export
           requires:
             - node/run
+      - node/run:
+          pkg-manager: yarn
+          yarn-run: deploy
+          requires:
+            - node/run
       - node/test:
           # This is the node version to use for the `cimg/node` tag
           # Relevant tags can be found on the CircleCI Developer Hub
