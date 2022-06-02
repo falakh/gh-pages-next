@@ -4,7 +4,7 @@ export default function Home() {
     <div>
       Hello World.{' '}
       <Link href="/about" as={process.env.BACKEND_URL + '/about'}>
-        <a>About</a>
+        <a>About test</a>
       </Link>
     </div>
   )
