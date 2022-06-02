@@ -7,6 +7,21 @@ orbs:
   github-cli: circleci/github-cli@2.1.0
 
 jobs:
+  build:
+    docker:
+      - image: 'cimg/node:16.15.0'
+    steps:
+      - checkout
+      - run: echo "Build started on `date`"                     
+      - node/install-packages:
+          check-cache: detect # try using yarn.lock
+      - run: yarn run build 
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: out
+          # Must be relative path from root
+          paths: .
   deploy:
     docker:
       - image: cimg/node:16.15.0
@@ -34,13 +49,8 @@ workflows:
           filters:
             branches:
               only: main
+      - build 
       - deploy
-      - node/run:
-          pkg-manager: yarn
-          name: deploy
-          yarn-run: deploy
-          requires:
-            - hold  
       - node/test:
           # This is the node version to use for the `cimg/node` tag
           # Relevant tags can be found on the CircleCI Developer Hub
