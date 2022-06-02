@@ -1,30 +1,21 @@
 # This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
 
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
+
 orbs:
   node: circleci/node@5.0.2
   github-cli: circleci/github-cli@2.1.0
 
-# Invoke jobs via workflows
 jobs:
-  example-job:
-    docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
-    steps:
-      - github-cli/setup:
-          token: GITHUB_TOKEN
   deploy:
     docker:
-      # replace with your preferred image
       - image: cimg/node:16.15.0
     steps:
       - checkout
       - attach_workspace:
           at: out
-      - name: Install and configure dependencies
+      - run:
+          name: Install and configure dependencies
           command: |
             npm install -g --silent gh-pages@2.0.1
             git config user.email "zulfikarfahmi38@gmail.com"
@@ -35,16 +26,15 @@ jobs:
       - run:
           name: Deploy docs to gh-pages branch
           command: gh-pages --dotfiles --message "[skip ci] Updates" --dist out
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  sample: 
     jobs:
       - hold:
           type: approval
           filters:
             branches:
               only: main
+      - deploy
       - node/run:
           pkg-manager: yarn
           name: deploy
