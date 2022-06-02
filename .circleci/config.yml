@@ -5,12 +5,24 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
   node: circleci/node@5.0.2
+  github-cli: circleci/github-cli@2.1.0
+
 # Invoke jobs via workflows
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - github-cli/setup:
+          token: GITHUB_TOKEN 
+          hostname: https://github.com/falakh/gh-pages-next 
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
     jobs:
+      - example-job
       - hold:
           type: approval
           filters:
