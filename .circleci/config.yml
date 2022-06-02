@@ -24,6 +24,8 @@ workflows:
     jobs:
       - example-job
       - hold:
+          requires:
+            - example-job  
           type: approval
           filters:
             branches:
