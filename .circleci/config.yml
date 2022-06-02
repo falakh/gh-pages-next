@@ -15,8 +15,8 @@ jobs:
       - image: cimg/base:stable
     steps:
       - github-cli/setup:
-          token: $GITHUB_TOKEN 
-          hostname: https://github.com/falakh/gh-pages-next 
+          token: GITHUB_TOKEN 
+          hostname: https://github.com/
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
