@@ -23,11 +23,20 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     
     jobs:
+      - example-job
       - hold:
           type: approval
           filters:
             branches:
               only: main
+        - node/run:
+          pkg-manager: yarn
+          name: build
+          yarn-run: build  
+        - node/run:
+          pkg-manager: yarn
+          name: export
+          yarn-run: export
       - node/run:
           pkg-manager: yarn
           name: deploy
