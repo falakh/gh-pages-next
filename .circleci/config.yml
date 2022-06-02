@@ -49,8 +49,12 @@ workflows:
           filters:
             branches:
               only: main
-      - build 
-      - deploy
+      - build:
+          requires:
+            - hold 
+      - deploy:
+          requires:
+              - build 
       - node/test:
           # This is the node version to use for the `cimg/node` tag
           # Relevant tags can be found on the CircleCI Developer Hub
