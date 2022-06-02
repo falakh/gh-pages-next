@@ -19,7 +19,9 @@ workflows:
       - node/run:
           pkg-manager: yarn
           name: build
-          yarn-run: build  
+          yarn-run: build
+          requires:
+            - hold  
       - node/run:
           pkg-manager: yarn
           name: export
